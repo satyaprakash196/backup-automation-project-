@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Variables
+SOURCE_DIR="/var/www/html/beta"
+BACKUP_DIR="/backup"
+BACKUP_FILE="$BACKUP_DIR/xfusioncorp_beta.zip"
+REMOTE_USER="ec2-user"
+REMOTE_HOST="<stbkp01-private-ip>"
+REMOTE_DIR="/backup"
+
+# Create local backup directory if not exists
+mkdir -p $BACKUP_DIR
+
+# Create zip archive
+zip -r $BACKUP_FILE $SOURCE_DIR
+
+# Copy the zip file to backup server
+scp $BACKUP_FILE ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/
